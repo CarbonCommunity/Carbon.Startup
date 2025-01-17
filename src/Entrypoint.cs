@@ -10,6 +10,8 @@ using Carbon.Utilities.Patches;
 using Doorstop;
 using Doorstop.Utility;
 using HarmonyLib;
+using UnityEngine;
+using Logger = Doorstop.Utility.Logger;
 using Patch = Carbon.Utilities.Patch;
 
 namespace Startup;
@@ -17,13 +19,6 @@ namespace Startup;
 [SuppressUnmanagedCodeSecurity]
 public sealed class Entrypoint
 {
-	private static readonly string[] PreloadPreUpdate =
-	[
-		Path.Combine(Defines.GetLibFolder(), "0Harmony.dll"),
-		Path.Combine(Defines.GetLibFolder(), "Ben.Demystifier.dll"),
-		Path.Combine(Defines.GetLibFolder(), "ZstdSharp.dll"),
-		Path.Combine(Defines.GetLibFolder(), "SharpCompress.dll")
-	];
 	private static readonly string[] PreloadPostUpdate =
 	[
 		Path.GetFullPath(Path.Combine(Defines.GetManagedFolder(), "Carbon.Compat.dll"))
@@ -110,20 +105,9 @@ public sealed class Entrypoint
 
 	public static void Start()
 	{
-		new Harmony("com.carbon.locationpatch").PatchAll();
+		Logger.Log($" Initialized Carbon.Startup {typeof(Entrypoint).Assembly.GetName().Version}");
 
-		foreach (string file in PreloadPreUpdate)
-		{
-			try
-			{
-				var harmony = Assembly.LoadFile(file);
-				Logger.Log($" Preloaded {harmony.GetName().Name} {harmony.GetName().Version}");
-			}
-			catch (Exception e)
-			{
-				Logger.Log($"Unable to preload '{file}' ({e?.Message})");
-			}
-		}
+		new Harmony("com.carbon.locationpatch").PatchAll();
 
 		foreach (string file in PreloadPostUpdate)
 		{
