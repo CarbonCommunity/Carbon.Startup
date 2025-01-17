@@ -6,10 +6,6 @@ internal static class Blacklist
 {
 	private static readonly string[] Items =
 	{
-		@"^SpawnGroup.(GetSpawnPoint|PostSpawnProcess|Spawn)$",
-		@"^ScientistNPC.OverrideCorpseName$",
-		@"^TriggerParentElevator.IsClipping$",
-		@"^DroppedItem.TransformHasMoved$",
 		@"^HiddenValueBase$",
 		@"^HiddenValue`1$",
 		@"^Pool$"
