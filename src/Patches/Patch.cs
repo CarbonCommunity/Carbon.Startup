@@ -3,11 +3,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Carbon.Core;
-using Startup;
+using Doorstop;
 using Doorstop.Utility;
 using Mono.Cecil;
-using Mono.Cecil.Cil;
-using FieldAttributes = Mono.Cecil.FieldAttributes;
+using Entrypoint = Startup.Entrypoint;
 
 namespace Carbon.Utilities;
 
@@ -145,7 +144,7 @@ public class Patch : IDisposable
 	{
 		try
 		{
-			if (Blacklist.IsBlacklisted(type.Name))
+			if (Config.Singleton.Publicizer.IsMemberIgnored(type.Name))
 			{
 				Logger.Warn($"Excluded '{type.Name}' due to blacklisting");
 				return;
@@ -157,7 +156,7 @@ public class Patch : IDisposable
 
 			foreach (var method in type.Methods)
 			{
-				if (Blacklist.IsBlacklisted($"{type.Name}.{method.Name}"))
+				if (Config.Singleton.Publicizer.IsMemberIgnored($"{type.Name}.{method.Name}"))
 				{
 					Logger.Warn($"Excluded '{type.Name}.{method.Name}' due to blacklisting");
 					continue;
@@ -168,7 +167,7 @@ public class Patch : IDisposable
 
 			foreach (var field in type.Fields)
 			{
-				if (Blacklist.IsBlacklisted($"{type.Name}.{field.Name}"))
+				if (Config.Singleton.Publicizer.IsMemberIgnored($"{type.Name}.{field.Name}"))
 				{
 					Logger.Warn($"Excluded '{type.Name}.{field.Name}' due to blacklisting");
 					continue;
