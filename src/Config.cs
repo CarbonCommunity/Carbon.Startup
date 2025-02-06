@@ -57,10 +57,12 @@ public class Config
 		if (!File.Exists(Defines.GetConfigFile()))
 		{
 			Singleton = new();
-			return;
+		}
+		else
+		{
+			Singleton = JsonConvert.DeserializeObject<Config>(File.ReadAllText(Defines.GetConfigFile()));
 		}
 
-		Singleton = JsonConvert.DeserializeObject<Config>(File.ReadAllText(Defines.GetConfigFile()));
 		Singleton.ForceEnsurePublicizedAssembly("Assembly-CSharp.dll");
 		Singleton.ForceEnsurePublicizedAssembly("Facepunch.Console.dll");
 		Singleton.ForceEnsurePublicizedAssembly("Facepunch.Network.dll");
