@@ -3,7 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using Carbon.Core;
-using Doorstop;
+using Startup;
 using Doorstop.Utility;
 using Mono.Cecil;
 using Entrypoint = Startup.Entrypoint;
@@ -39,7 +39,7 @@ public class Patch : IDisposable
 	public string fileName;
 
 	public virtual bool IsAlreadyPatched => assembly.MainModule.Types.FirstOrDefault(x => x.Name == "<Module>").Fields.Any(x => x.Name == "CarbonPatched");
-	public bool ShouldPublicize => Doorstop.Config.Singleton.Publicizer.PublicizedAssemblies.Any(x => fileName.StartsWith(x, StringComparison.OrdinalIgnoreCase));
+	public bool ShouldPublicize => Config.Singleton.Publicizer.PublicizedAssemblies.Any(x => fileName.StartsWith(x, StringComparison.OrdinalIgnoreCase));
 
 	public Patch(string path, string name)
 	{

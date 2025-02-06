@@ -7,10 +7,8 @@ using System.Runtime.InteropServices;
 using System.Security;
 using Carbon.Core;
 using Carbon.Utilities.Patches;
-using Doorstop;
 using Doorstop.Utility;
 using HarmonyLib;
-using UnityEngine;
 using Logger = Doorstop.Utility.Logger;
 using Patch = Carbon.Utilities.Patch;
 
@@ -105,6 +103,8 @@ public sealed class Entrypoint
 
 	public static void Start()
 	{
+		Config.Init();
+
 		Logger.Log($" Initialized Carbon.Startup {typeof(Entrypoint).Assembly.GetName().Version}");
 
 		new Harmony("com.carbon.locationpatch").PatchAll();
