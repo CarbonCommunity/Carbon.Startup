@@ -85,19 +85,7 @@ public sealed class Entrypoint
 
 	#endregion
 
-	[HarmonyPatch("System.Reflection.RuntimeAssembly", "Location", MethodType.Getter)]
-	public class AssemblyLocationPatch
-	{
-		public static void Postfix(Assembly __instance, ref string __result)
-		{
-			if (PatchMapping.TryGetValue(__instance, out var path))
-			{
-				__result = path;
-			}
-		}
-	}
-
-	public static Patch[] Patches = [new AssemblyCSharp()];
+	public static Patch[] Patches = [new AssemblyCSharp(), new RustHarmony()];
 	public static List<Patch> Publicized = new();
 	public static Dictionary<Assembly, string> PatchMapping = new();
 
@@ -107,7 +95,7 @@ public sealed class Entrypoint
 
 		Logger.Log($" Initialized Carbon.Startup {typeof(Entrypoint).Assembly.GetName().Version}");
 
-		new Harmony("com.carbon.locationpatch").PatchAll();
+		new Harmony("com.carbon.locationpatch").PatchCategory("location");
 
 		foreach (string file in PreloadPostUpdate)
 		{
