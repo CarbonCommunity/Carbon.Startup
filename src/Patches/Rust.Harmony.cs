@@ -43,7 +43,6 @@ public class RustHarmony() : Patch(Defines.GetRustManagedFolder(), "Rust.Harmony
 
 		var switchReference = assembly.MainModule.ImportReference(typeof(CommandLine).GetMethod("GetSwitch", [typeof(string), typeof(string)]));
 		var combineReference = assembly.MainModule.ImportReference(typeof(Path).GetMethod("Combine", [typeof(string), typeof(string)]));
-		var modPath = harmonyLoader.Fields.FirstOrDefault(x => x.Name == "modPath");
 
 		const int offset = 21;
 		method.Body.Instructions.RemoveAt(offset);
