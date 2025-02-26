@@ -38,7 +38,6 @@ public class Patch : IDisposable
 	public string filePath;
 	public string fileName;
 
-	public virtual bool IsAlreadyPatched => assembly.MainModule.Types.FirstOrDefault(x => x.Name == "<Module>").Fields.Any(x => x.Name == "CarbonPatched");
 	public bool ShouldPublicize => Config.Singleton.Publicizer.PublicizedAssemblies.Any(x => fileName.StartsWith(x, StringComparison.OrdinalIgnoreCase));
 
 	public Patch(string path, string name)
@@ -55,7 +54,7 @@ public class Patch : IDisposable
 	{
 		assembly = AssemblyDefinition.ReadAssembly(new MemoryStream(File.ReadAllBytes(GetFullPath())), readerParameters);
 
-		if (IsAlreadyPatched || !ShouldPublicize)
+		if (!ShouldPublicize)
 		{
 			return false;
 		}

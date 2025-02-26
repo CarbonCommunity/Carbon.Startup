@@ -10,8 +10,6 @@ namespace Carbon.Utilities.Patches;
 
 public class RustHarmony() : Patch(Defines.GetRustManagedFolder(), "Rust.Harmony.dll")
 {
-	public override bool IsAlreadyPatched => false;
-
 	public override bool Execute()
 	{
 		if (!base.Execute()) return false;

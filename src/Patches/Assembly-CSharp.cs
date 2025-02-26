@@ -11,8 +11,6 @@ namespace Carbon.Utilities.Patches;
 
 public class AssemblyCSharp() : Patch(Defines.GetRustManagedFolder(), "Assembly-CSharp.dll")
 {
-	public override bool IsAlreadyPatched => IsPublic("ServerMgr", "Shutdown");
-
 	public override bool Execute()
 	{
 		if (!base.Execute()) return false;
@@ -30,7 +28,7 @@ public class AssemblyCSharp() : Patch(Defines.GetRustManagedFolder(), "Assembly-
 
 		return true;
 	}
-	
+
 	private void InjectBootstrap()
 	{
 		if (bootstrap == null)
