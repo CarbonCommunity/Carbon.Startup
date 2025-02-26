@@ -14,12 +14,14 @@ public class Patch : IDisposable
 {
 	protected static AssemblyDefinition bootstrap;
 
+	public AssemblyDefinition assembly;
+	public ReaderParameters readerParameters;
+
 	public static void Init()
 	{
 		try
 		{
-			bootstrap = AssemblyDefinition.ReadAssembly(
-				new MemoryStream(File.ReadAllBytes(Path.Combine(Defines.GetManagedFolder(), "Carbon.Bootstrap.dll"))));
+			bootstrap = AssemblyDefinition.ReadAssembly(new MemoryStream(File.ReadAllBytes(Path.Combine(Defines.GetManagedFolder(), "Carbon.Bootstrap.dll"))));
 		}
 		catch { }
 	}
@@ -29,8 +31,6 @@ public class Patch : IDisposable
 		bootstrap = null;
 	}
 
-	private ReaderParameters readerParameters;
-	protected AssemblyDefinition assembly;
 
 	public string GetFullPath() => Path.Combine(filePath, fileName);
 
