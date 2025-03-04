@@ -46,6 +46,7 @@ public class RustHarmony() : Patch(Defines.GetRustManagedFolder(), "Rust.Harmony
 		method.Body.Instructions.RemoveAt(offset);
 		method.Body.Instructions.RemoveAt(offset);
 		method.Body.Instructions.RemoveAt(offset);
+		method.Body.Instructions.RemoveAt(offset);
 
 		method.Body.Instructions.Insert(offset, Instruction.Create(OpCodes.Ldstr, "-harmonydir"));
 		method.Body.Instructions.Insert(offset + 1, Instruction.Create(OpCodes.Ldloc_0));
