@@ -6,11 +6,10 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security;
 using Carbon.Core;
-using Carbon.Utilities.Patches;
+using Carbon.Publicizer;
 using Doorstop.Utility;
 using HarmonyLib;
 using Logger = Doorstop.Utility.Logger;
-using Patch = Carbon.Utilities.Patch;
 
 namespace Startup;
 
@@ -85,13 +84,9 @@ public sealed class Entrypoint
 
 	#endregion
 
-	public static Patch[] Patches = [new AssemblyCSharp(), new RustHarmony()];
-	public static List<Patch> Publicized = new();
-	public static Dictionary<Assembly, string> PatchMapping = new();
-
 	public static void Start()
 	{
-		Config.Init();
+		Config.Init(Defines.GetConfigFile());
 
 		Logger.Log($" Initialized Carbon.Startup {typeof(Entrypoint).Assembly.GetName().Version}");
 
@@ -125,13 +120,17 @@ public sealed class Entrypoint
 
 		var patchableFiles = Directory.EnumerateFiles(Defines.GetRustManagedFolder());
 
-		Patch.Init();
+		Carbon.Publicizer.Patch.onBufferUpdate = arg =>
+		{
+			API.Assembly.PatchedAssemblies.AssemblyCache[Path.GetFileNameWithoutExtension(arg.path)] = arg.buffer;
+		};
+		Carbon.Publicizer.Patch.Init(Defines.GetManagedFolder(), Defines.GetRustManagedFolder());
 		foreach (var file in patchableFiles)
 		{
 			try
 			{
 				var name = Path.GetFileName(file);
-				var patch = Patches.FirstOrDefault(x => x.fileName.Equals(name));
+				var patch = BuiltInPatches.Current.FirstOrDefault(x => x.fileName.Equals(name));
 
 				if (patch != null && patch.Execute())
 				{
@@ -148,7 +147,7 @@ public sealed class Entrypoint
 					continue;
 				}
 
-				patch = new Patch(Path.GetDirectoryName(file), name);
+				patch = new Carbon.Publicizer.Patch(Path.GetDirectoryName(file), name);
 				if (patch.Execute())
 				{
 					patch.Load();
@@ -156,7 +155,6 @@ public sealed class Entrypoint
 					{
 						patch.Write(Path.Combine(Defines.GetDeveloperPatchedAssembliesFolder(), name));
 					}
-					Publicized.Add(patch);
 				}
 			}
 			catch (Exception ex)
@@ -164,7 +162,7 @@ public sealed class Entrypoint
 				Logger.Error("Failed to patch", ex);
 			}
 		}
-		Patch.Uninit();
+		Carbon.Publicizer.Patch.Uninit();
 
 		try
 		{

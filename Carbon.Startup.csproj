@@ -5,6 +5,8 @@
 	</PropertyGroup>
 
 	<Import Project="$(SolutionDir)\.msbuild\Common.props" />
+
+	<Import Project="..\..\Carbon.Tools\Carbon.Publicizer.Shared\Carbon.Publicizer.Shared.projitems" Label="Shared" />
 	<Import Project="$(SolutionDir)\.msbuild\ReferencesRust.props" />
 
 	<ItemGroup>
