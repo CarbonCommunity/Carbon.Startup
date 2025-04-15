@@ -33,7 +33,8 @@ public sealed class Entrypoint
 		Path.Combine(Defines.GetRustManagedFolder(), "Oxide.References.dll"),
 		Path.Combine(Defines.GetRustManagedFolder(), "Oxide.Rust.dll"),
 		Path.Combine(Defines.GetRustManagedFolder(), "Oxide.SQLite.dll"),
-		Path.Combine(Defines.GetRustManagedFolder(), "Oxide.Unity.dll")
+		Path.Combine(Defines.GetRustManagedFolder(), "Oxide.Unity.dll"),
+		Path.Combine(Defines.GetLibFolder(), "UniTask.dll")
 	];
 
 	private static readonly Dictionary<(string directory, string filter), string> WildcardMove = new()
