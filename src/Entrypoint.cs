@@ -35,7 +35,8 @@ public sealed class Entrypoint
 		Path.Combine(Defines.GetRustManagedFolder(), "Oxide.SQLite.dll"),
 		Path.Combine(Defines.GetRustManagedFolder(), "Oxide.Unity.dll"),
 		Path.Combine(Defines.GetLibFolder(), "UniTask.dll"),
-		Path.Combine(Defines.GetManagedFolder(), "Carbon.Common.Client.V2.dll")
+		Path.Combine(Defines.GetManagedFolder(), "Carbon.Common.Client.V2.dll"),
+		Path.Combine(Defines.GetRootFolder(), "config.client.json")
 	];
 
 	private static readonly Dictionary<(string directory, string filter), string> WildcardMove = new()
@@ -55,7 +56,6 @@ public sealed class Entrypoint
 	};
 	private static readonly Dictionary<string, string> Rename = new()
 	{
-		[Path.Combine(Defines.GetRootFolder(), "config_client.json")] = Path.Combine(Defines.GetRootFolder(), "config.client.json"),
 		[Path.Combine(Defines.GetRootFolder(), "carbonauto.cfg")] = Path.Combine(Defines.GetRootFolder(), "config.auto.json"),
 		[Path.Combine(Defines.GetRootFolder(), "config.auto.cfg")] = Path.Combine(Defines.GetRootFolder(), "config.auto.json")
 	};
