@@ -6,6 +6,7 @@ using System.Reflection;
 using System.Runtime.InteropServices;
 using System.Security;
 using Carbon.Core;
+using Carbon.Extensions;
 using Carbon.Publicizer;
 using Doorstop.Utility;
 using HarmonyLib;
@@ -126,7 +127,7 @@ public sealed class Entrypoint
 		{
 			API.Assembly.PatchedAssemblies.AssemblyCache[Path.GetFileNameWithoutExtension(arg.path)] = arg.buffer;
 		};
-		Carbon.Publicizer.Patch.Init(Defines.GetManagedFolder(), Defines.GetRustManagedFolder());
+		Carbon.Publicizer.Patch.Init(Defines.GetModifierFolder(), Defines.GetManagedFolder(), Defines.GetRustManagedFolder());
 		foreach (var file in patchableFiles)
 		{
 			try
@@ -261,7 +262,7 @@ public sealed class Entrypoint
 			try
 			{
 				Logger.Log($" Copied oxide/{Path.GetFileName(folder.Key)} -> carbon/{Path.GetFileName(folder.Value)}");
-				IO.Copy(folder.Key, folder.Value);
+				OsEx.Copy(folder.Key, folder.Value);
 			}
 			catch (Exception e)
 			{
@@ -285,7 +286,7 @@ public sealed class Entrypoint
 
 			try
 			{
-				IO.Move(folder.Key, folder.Value);
+				OsEx.Move(folder.Key, folder.Value);
 			}
 			catch (Exception e)
 			{
