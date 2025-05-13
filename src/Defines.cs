@@ -42,7 +42,7 @@ public class Defines
 
 		try
 		{
-			root = Path.GetFullPath(Path.Combine(typeof(Defines).Assembly.Location, "..", ".."));
+			root = Path.GetFullPath(Path.Combine("."));
 		}
 		catch (Exception ex)
 		{
