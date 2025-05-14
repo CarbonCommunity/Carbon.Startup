@@ -3,6 +3,9 @@
 		<Product>Carbon.Startup</Product>
 		<OutputType>Library</OutputType>
 	</PropertyGroup>
+	<ItemGroup>
+	  <PackageReference Include="protobuf-net" Version="3.2.52" />
+	</ItemGroup>
 
 	<Import Project="$(SolutionDir)\.msbuild\Common.props" />
 
