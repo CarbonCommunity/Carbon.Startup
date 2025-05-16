@@ -19,7 +19,9 @@ public sealed class Entrypoint
 {
 	private static readonly string[] PreloadPostUpdate =
 	[
-		Path.GetFullPath(Path.Combine(Defines.GetManagedFolder(), "Carbon.Compat.dll"))
+		Path.GetFullPath(Path.Combine(Defines.GetManagedFolder(), "Carbon.Compat.dll")),
+		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "protobuf-net.dll")),
+		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "protobuf-net.Core.dll"))
 	];
 	private static readonly string[] Delete =
 	[
