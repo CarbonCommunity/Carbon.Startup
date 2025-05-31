@@ -1,8 +1,8 @@
 ﻿using System.Reflection;
 using HarmonyLib;
-using Startup;
+using Carbon.Startup;
 
-namespace Patches;
+namespace Carbon.Startup.Patches;
 
 [HarmonyPatchCategory("location")]
 [HarmonyPatch("System.Reflection.RuntimeAssembly", "Location", MethodType.Getter)]

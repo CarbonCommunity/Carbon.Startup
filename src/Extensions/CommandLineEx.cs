@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Carbon.Extensions;
+namespace Carbon.Startup.Extensions;
 
 public static class CommandLineEx
 {

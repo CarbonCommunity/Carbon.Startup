@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 using System.Reflection;
-using Carbon.Core;
+using Carbon.Startup.Core;
 
 namespace Doorstop.Utility;
 

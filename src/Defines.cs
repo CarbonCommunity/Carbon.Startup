@@ -2,9 +2,9 @@
 using System;
 using Doorstop.Utility;
 using Doorstop;
-using Carbon.Extensions;
+using Carbon.Startup.Extensions;
 
-namespace Carbon.Core;
+namespace Carbon.Startup.Core;
 
 [Serializable]
 public class Defines

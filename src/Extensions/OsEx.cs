@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.IO;
 
-namespace Carbon.Extensions;
+namespace Carbon.Startup.Extensions;
 
 public static class OsEx
 {
