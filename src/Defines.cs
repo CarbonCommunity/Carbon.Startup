@@ -13,7 +13,7 @@ public class Defines
 	public static void Initialize()
 	{
 		GetRootFolder();
-		GetSettingsFolder();
+		GetCarbonConfigFolder();
 		GetConfigsFolder();
 		GetModulesFolder();
 		GetDataFolder();
@@ -25,7 +25,7 @@ public class Defines
 
 	internal static string _customRustRootFolder;
 	internal static string _customRootFolder;
-	internal static string _customSettingFolder;
+	internal static string _customCarbonConfigFolder;
 	internal static string _customScriptFolder;
 	internal static string _customConfigFolder;
 	internal static string _customDataFolder;
@@ -52,7 +52,7 @@ public class Defines
 		}
 		_customRustRootFolder = "-carbon.rustrootdir".GetArgumentResult();
 		_customRootFolder = "-carbon.rootdir".GetArgumentResult();
-		_customSettingFolder = "-carbon.settingdir".GetArgumentResult();
+		_customCarbonConfigFolder = "-carbon.carbonconfigdir".GetArgumentResult();
 		_customScriptFolder = "-carbon.scriptdir".GetArgumentResult();
 		_customConfigFolder = "-carbon.configdir".GetArgumentResult();
 		_customDataFolder = "-carbon.datadir".GetArgumentResult();
@@ -67,17 +67,17 @@ public class Defines
 	public static string GetConfigFile()
 	{
 		_initializeCommandLine();
-		return Path.Combine(GetSettingsFolder(), "config.json");
+		return Path.Combine(GetCarbonConfigFolder(), "config.json");
 	}
 	public static string GetMonoProfilerConfigFile()
 	{
 		_initializeCommandLine();
-		return Path.Combine(GetSettingsFolder(), "config.profiler.json");
+		return Path.Combine(GetCarbonConfigFolder(), "config.profiler.json");
 	}
 	public static string GetCarbonAutoFile()
 	{
 		_initializeCommandLine();
-		return Path.Combine(GetSettingsFolder(), "config.auto.json");
+		return Path.Combine(GetCarbonConfigFolder(), "config.auto.json");
 	}
 
 	public static string GetRootFolder()
@@ -88,11 +88,11 @@ public class Defines
 
 		return folder;
 	}
-	
-	public static string GetSettingsFolder()
+
+	public static string GetCarbonConfigFolder()
 	{
 		_initializeCommandLine();
-		var folder = string.IsNullOrEmpty(_customSettingFolder) ? root : _customRootFolder;
+		var folder = string.IsNullOrEmpty(_customCarbonConfigFolder) ? root : _customRootFolder;
 		Directory.CreateDirectory(folder);
 
 		return folder;
