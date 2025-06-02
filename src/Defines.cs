@@ -13,6 +13,7 @@ public class Defines
 	public static void Initialize()
 	{
 		GetRootFolder();
+		GetSettingsFolder();
 		GetConfigsFolder();
 		GetModulesFolder();
 		GetDataFolder();
@@ -24,6 +25,7 @@ public class Defines
 
 	internal static string _customRustRootFolder;
 	internal static string _customRootFolder;
+	internal static string _customSettingFolder;
 	internal static string _customScriptFolder;
 	internal static string _customConfigFolder;
 	internal static string _customDataFolder;
@@ -50,6 +52,7 @@ public class Defines
 		}
 		_customRustRootFolder = "-carbon.rustrootdir".GetArgumentResult();
 		_customRootFolder = "-carbon.rootdir".GetArgumentResult();
+		_customSettingFolder = "-carbon.settingdir".GetArgumentResult();
 		_customScriptFolder = "-carbon.scriptdir".GetArgumentResult();
 		_customConfigFolder = "-carbon.configdir".GetArgumentResult();
 		_customDataFolder = "-carbon.datadir".GetArgumentResult();
@@ -64,23 +67,32 @@ public class Defines
 	public static string GetConfigFile()
 	{
 		_initializeCommandLine();
-		return Path.Combine(GetRootFolder(), "config.json");
+		return Path.Combine(GetSettingsFolder(), "config.json");
 	}
 	public static string GetMonoProfilerConfigFile()
 	{
 		_initializeCommandLine();
-		return Path.Combine(GetRootFolder(), "config.profiler.json");
+		return Path.Combine(GetSettingsFolder(), "config.profiler.json");
 	}
 	public static string GetCarbonAutoFile()
 	{
 		_initializeCommandLine();
-		return Path.Combine(GetRootFolder(), "config.auto.json");
+		return Path.Combine(GetSettingsFolder(), "config.auto.json");
 	}
 
 	public static string GetRootFolder()
 	{
 		_initializeCommandLine();
 		var folder = string.IsNullOrEmpty(_customRootFolder) ? Path.Combine(root, "carbon") : _customRootFolder;
+		Directory.CreateDirectory(folder);
+
+		return folder;
+	}
+	
+	public static string GetSettingsFolder()
+	{
+		_initializeCommandLine();
+		var folder = string.IsNullOrEmpty(_customSettingFolder) ? root : _customRootFolder;
 		Directory.CreateDirectory(folder);
 
 		return folder;
