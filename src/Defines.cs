@@ -92,7 +92,7 @@ public class Defines
 	public static string GetCarbonConfigFolder()
 	{
 		_initializeCommandLine();
-		var folder = string.IsNullOrEmpty(_customCarbonConfigFolder) ? root : _customRootFolder;
+		var folder = string.IsNullOrEmpty(_customCarbonConfigFolder) ? GetRootFolder() : _customRootFolder;
 		Directory.CreateDirectory(folder);
 
 		return folder;
