@@ -21,7 +21,8 @@ public sealed class Entrypoint
 	[
 		Path.GetFullPath(Path.Combine(Defines.GetManagedFolder(), "Carbon.Compat.dll")),
 		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "protobuf-net.dll")),
-		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "protobuf-net.Core.dll"))
+		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "protobuf-net.Core.dll")),
+		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "System.Collections.Immutable.dll"))
 	];
 	private static readonly string[] Delete =
 	[
