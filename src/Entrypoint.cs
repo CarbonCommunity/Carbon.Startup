@@ -25,6 +25,7 @@ public sealed class Entrypoint
 		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "MonoMod.ILHelpers.dll")),
 		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "MonoMod.Utils.dll")),
 		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "MonoMod.Iced.dll")),
+		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "0Harmony.dll")),
 		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "protobuf-net.dll")),
 		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "protobuf-net.Core.dll")),
 		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "System.ValueTuple.dll")),
