@@ -20,14 +20,8 @@ public sealed class Entrypoint
 	private static readonly string[] PreloadPostUpdate =
 	[
 		Path.GetFullPath(Path.Combine(Defines.GetManagedFolder(), "Carbon.Compat.dll")),
-		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "MonoMod.Core.dll")),
-		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "MonoMod.Backports.dll")),
-		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "MonoMod.ILHelpers.dll")),
-		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "MonoMod.Utils.dll")),
-		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "MonoMod.Iced.dll")),
 		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "protobuf-net.dll")),
 		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "protobuf-net.Core.dll")),
-		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "System.ValueTuple.dll")),
 		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "System.Collections.Immutable.dll"))
 	];
 	private static readonly string[] Delete =
@@ -105,20 +99,20 @@ public sealed class Entrypoint
 
 		Logger.Log($" Initialized Carbon.Startup {typeof(Entrypoint).Assembly.GetName().Version}");
 
+		new Harmony("com.carbon.locationpatch").PatchCategory("location");
+
 		foreach (string file in PreloadPostUpdate)
 		{
 			try
 			{
-				Assembly assembly = Assembly.LoadFile(file);
-				Logger.Log($" Preloaded {assembly.GetName().Name} {assembly.GetName().Version}");
+				Assembly harmony = Assembly.LoadFile(file);
+				Logger.Log($" Preloaded {harmony.GetName().Name} {harmony.GetName().Version}");
 			}
 			catch (Exception e)
 			{
 				Logger.Log($"Unable to preload '{file}' ({e?.Message})");
 			}
 		}
-
-		new Harmony("com.carbon.locationpatch").PatchCategory("location");
 
 		PerformStartup();
 	}
