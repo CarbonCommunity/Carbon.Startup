@@ -19,6 +19,7 @@ public sealed class Entrypoint
 {
 	private static readonly string[] PreloadPostUpdate =
 	[
+		Path.Combine(Defines.GetLibFolder(), "0Harmony.dll"),
 		Path.GetFullPath(Path.Combine(Defines.GetManagedFolder(), "Carbon.Compat.dll")),
 		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "protobuf-net.dll")),
 		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "protobuf-net.Core.dll")),
@@ -99,8 +100,6 @@ public sealed class Entrypoint
 
 		Logger.Log($" Initialized Carbon.Startup {typeof(Entrypoint).Assembly.GetName().Version}");
 
-		new Harmony("com.carbon.locationpatch").PatchCategory("location");
-
 		foreach (string file in PreloadPostUpdate)
 		{
 			try
@@ -114,7 +113,13 @@ public sealed class Entrypoint
 			}
 		}
 
+		PerformPatch();
 		PerformStartup();
+	}
+
+	public static void PerformPatch()
+	{
+		new Harmony("com.carbon.locationpatch").PatchCategory("location");
 	}
 	public static void PerformStartup()
 	{
