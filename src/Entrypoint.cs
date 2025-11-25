@@ -20,6 +20,9 @@ public sealed class Entrypoint
 	private static readonly string[] PreloadPostUpdate =
 	[
 		Path.Combine(Defines.GetLibFolder(), "0Harmony.dll"),
+		Path.Combine(Defines.GetLibFolder(), "Ben.Demystifier.dll"),
+		Path.Combine(Defines.GetLibFolder(), "ZstdSharp.dll"),
+		Path.Combine(Defines.GetLibFolder(), "SharpCompress.dll"),
 		Path.GetFullPath(Path.Combine(Defines.GetManagedFolder(), "Carbon.Compat.dll")),
 		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "protobuf-net.dll")),
 		Path.GetFullPath(Path.Combine(Defines.GetLibFolder(), "protobuf-net.Core.dll")),
@@ -104,8 +107,8 @@ public sealed class Entrypoint
 		{
 			try
 			{
-				Assembly harmony = Assembly.LoadFile(file);
-				Logger.Log($" Preloaded {harmony.GetName().Name} {harmony.GetName().Version}");
+				Assembly assembly = Assembly.LoadFile(file);
+				Logger.Log($" Preloaded {assembly.GetName().Name} {assembly.GetName().Version}");
 			}
 			catch (Exception e)
 			{
